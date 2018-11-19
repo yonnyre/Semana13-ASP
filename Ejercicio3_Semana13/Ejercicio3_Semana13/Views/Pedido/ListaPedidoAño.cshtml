@@ -1,0 +1,74 @@
+﻿@model Ejercicio3_Semana13.Models.Pedidos
+
+@{
+    ViewBag.Title = "ListaPedidoAño";
+}
+
+<h2>ListaPedidoAño</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Pedidos</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdEmpleado, "IdEmpleado", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdEmpleado", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdEmpleado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Fecha Fin", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("FechaFin", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaPedido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Mostrar" id="btnMostrar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <div id="datos">
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("#btnMostrar").click(function () {
+                $("#datos").empty();
+                var fecha_fin = $("#FechaFin").val();
+                var fecha_inicio = fecha_fin - 1;
+                var fechai =  fecha_inicio + "-12-31";
+                var fechaf =  fecha_fin + "-12-31"; 
+                var fecha_inicio = $("")
+                var empleado = $("#IdEmpleado").val();
+                var url = "@Url.Action("ListadoPedidoAñoEmpleado", "Pedido")";
+                var data = { fecha_inicio: fechai, fecha_fin: fechaf, empleado: empleado };
+                //jquery : con get para cargar una seccion de pagina
+                //de manera asincrona
+                $.get(url, data).done(function (data) {
+                    //se ejecuta si la operacion fue un exito
+                    $("#datos").append(data);
+                }).fail(errorAjax());
+            });
+            function errorAjax() {
+                console.log(err.responseText);
+            }
+        });
+    </script>
+
+}

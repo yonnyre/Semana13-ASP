@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3328d694af1543708d3211d039753614" Name="Diagram1">
+        <EntityTypeShape EntityType="NeptunoWebModel.Clientes" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NeptunoWebModel.Empleados" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="NeptunoWebModel.Pedidos" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="NeptunoWebModel.Detalles_de_pedidos" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="NeptunoWebModel.FK_Pedidos_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="NeptunoWebModel.FK_Pedidos_Empleados" ManuallyRouted="false" />
+        <AssociationConnector Association="NeptunoWebModel.FK_Detalles_de_pedidos_Pedidos" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

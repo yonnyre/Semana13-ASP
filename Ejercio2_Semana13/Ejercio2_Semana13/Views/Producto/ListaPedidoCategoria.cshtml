@@ -1,0 +1,62 @@
+﻿@model Ejercio2_Semana13.Models.Productos
+
+@{
+    ViewBag.Title = "ListaPedidoCategoria";
+}
+
+<h2>ListaPedidoCategoria</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Productos</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdCategoria, "IdCategoria", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdCategoria", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Mostrar" id="btnMostrar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="datos">
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("#btnMostrar").click(function () {
+                $("#datos").empty();
+         
+                var categoria = $("#IdCategoria").val();
+                var url = "@Url.Action("ListadoPedidoIdCategoria", "Producto")";
+                var data = { categoria: categoria };
+                //jquery : con get para cargar una seccion de pagina
+                //de manera asincrona
+                $.get(url, data).done(function (data) {
+                    //se ejecuta si la operacion fue un exito
+                    $("#datos").append(data);
+                }).fail(errorAjax());
+            });
+            function errorAjax() {
+                console.log(err.responseText);
+            }
+        });
+    </script>
+
+}
